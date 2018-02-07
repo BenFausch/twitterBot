@@ -1,0 +1,66 @@
+<!doctype html>
+<html >
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title></title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="apple-touch-icon" href="apple-touch-icon.png">
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+	</head>
+	<body>
+		<div>
+			<img src="img/Twitter_Logo_White_On_Blue.png">
+			<form method="post" action="sendTweet.php">
+				<h1>What's the tweet yo</h1>
+				<textarea autofocus placeholder="put it in me" name="tweet" maxlength="140" >
+				</textarea>
+				<br>
+				<input type="submit" name="submit" value="Submit" id="twitForm">
+			</form>
+		</div>
+		<div id="toAdd">
+			<h1>madd tweets to twit</h1>
+		<ul></ul>
+	</div>
+	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script>
+		$('textarea').keypress(function(e){
+			if(e.keyCode == 13 && !e.shiftKey) {
+				e.preventDefault();
+				$('#twitForm').trigger('click');
+			}
+		});
+		$(document).ready(function(){
+			$.getJSON("bookmarks.json", function(json) {
+				var counter = 0;
+				for (var i in json){
+					counter++;
+					if (counter<=10){
+						var index = i;
+						var title = json[i].title;
+						var link = json[i].url;
+						$('#toAdd ul').append(
+							'<li><span style="visibility:hidden" id="index">'+index+'</span><p class="text">'+title+'</p><small> '+link+'</small></><br><button class="tweetIt">tweet it</button><button class="deleteIt">delete it</button></li>'
+							);   }
+					}
+					$('.deleteIt').click(function(e){
+						var ind = $(this).siblings('#index').text();
+						$.post( "deleteJson.php", { index: ind } );
+						$(this).parent().fadeOut(500).remove();
+					});
+					$('.tweetIt').click(function(e){
+						var text = $(this).siblings('p').text();
+						var url = $(this).siblings('small').text();
+						$('textarea').text(text + ' ' + url + '    #webdevelopment');
+					});
+					// console.log(json);
+				});
+		});
+	</script>
+</body>
+</html>
