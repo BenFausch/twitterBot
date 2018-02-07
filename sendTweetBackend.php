@@ -8,6 +8,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 function getConnectionWithAccessToken($oauth_token, $oauth_token_secret)
 {
     $connection = new TwitterOAuth(Twitter_auth::twitter_oauth, Twitter_auth::twitter_oauth_secret, $oauth_token, $oauth_token_secret);
+    
     return $connection;
 }
 
