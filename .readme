@@ -1,0 +1,1 @@
+Twitterbot uses chrome_bookmarks.json as it is downloaded using Export Bookmarks to JSON chrome plugin. Place the chrome_bookmarks.json file in this directory as-is.
