@@ -22,8 +22,8 @@ function build_tweet($bookmarks, $connection)
     $random_bookmark = array_rand($bookmarks);
 
     if (!empty($bookmarks[$random_bookmark]['title']) && !empty($bookmarks[$random_bookmark]['url']) && $bookmarks[$random_bookmark]['parentId'] == 234) {
-        $short = shorten_link($bookmarks[$random_bookmark]['url']);
-        $tweet = $bookmarks[$random_bookmark]['title'] . ' #webdev #php #js ' . $short;
+        // $short = shorten_link($bookmarks[$random_bookmark]['url']);
+        $tweet = $bookmarks[$random_bookmark]['title'] . ' #webdev #php #js ' . $bookmarks[$random_bookmark]['url'];
         send_tweet($tweet, $connection);
     } else {
         echo 'Trying again';
